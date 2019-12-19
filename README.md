@@ -1,0 +1,1 @@
+# Ruby Solidus API client
