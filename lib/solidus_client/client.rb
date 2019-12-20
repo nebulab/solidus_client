@@ -19,10 +19,14 @@ module SolidusClient
 
     def run
       command = ARGV.shift.to_sym
-      args = []
-      args << ARGV.shift unless ARGV.empty?
-      args << JSON.parse(ARGV.shift, symbolize_names: true) unless ARGV.empty?
-      result = send(command, *args)
+      args = ARGV.map do |arg|
+        begin
+          JSON.parse(arg, symbolize_names: true)
+        rescue JSON::ParserError
+          arg
+        end
+      end
+      result = send(command, args.first)
       pp result
     end
 
