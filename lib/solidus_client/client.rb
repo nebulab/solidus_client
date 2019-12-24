@@ -2,32 +2,23 @@
 
 require 'faraday'
 require 'faraday_middleware'
+require 'pp'
 
 module SolidusClient
   # Solidus API Client entrypoint
   class Client
-    def initialize
-      @connection = Faraday.new(url: ENV['SOLIDUS_URL'] + '/api') do |connection|
-        connection.authorization(:Bearer, ENV['SOLIDUS_API_KEY'])
+    def initialize(url: nil, api_key: nil)
+      url ||= ENV['SOLIDUS_URL']
+      api_key ||= ENV['SOLIDUS_API_KEY']
+
+      @connection = Faraday.new(url: url + '/api') do |connection|
+        connection.authorization(:Bearer, api_key)
         connection.use Faraday::Response::RaiseError
         connection.headers['Content-Type'] = 'application/json'
         connection.request(:json)
         connection.response(:json, parser_options: { symbolize_names: true })
         connection.adapter Faraday.default_adapter
       end
-    end
-
-    def run
-      command = ARGV.shift.to_sym
-      args = ARGV.map do |arg|
-        begin
-          JSON.parse(arg, symbolize_names: true)
-        rescue JSON::ParserError
-          arg
-        end
-      end
-      result = send(command, args.first)
-      pp result
     end
 
     def states(country_id)
@@ -42,8 +33,8 @@ module SolidusClient
       get('products')
     end
 
-    def stores
-      get('stores')
+    def create_product(data = {})
+      post('products', data)
     end
 
     def create_order(data = {})
@@ -113,10 +104,6 @@ module SolidusClient
     rescue Faraday::ClientError => e
       pp e.response[:body]
       raise
-    end
-
-    def parse_options(options)
-      return {} if options.empty?
     end
   end
 end

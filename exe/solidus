@@ -4,8 +4,8 @@
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 
-require 'solidus_client'
+require 'solidus_client/cli'
 
 STDOUT.sync = true
 
-SolidusClient::Client.new.run
+SolidusClient::CLI.new.run
