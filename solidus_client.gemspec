@@ -8,16 +8,16 @@ Gem::Specification.new do |s|
   s.version = SolidusClient::Version::STRING
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.3.0'
-  s.authors = ['Filippo Liverani']
+  s.authors = ['Team Nebulab']
   s.description = 'Solidus eCommerce API Ruby client'
 
   s.email = 'hello@nebulab.it'
   s.files = `git ls-files assets exe lib LICENSE.txt README.md`.split($RS)
   s.bindir = 'exe'
-  s.executables = ['solidus_client']
+  s.executables = ['solidus']
   s.require_path = 'lib'
   s.extra_rdoc_files = ['LICENSE.txt', 'README.md']
-  s.homepage = 'https://github.com/filippoliverani/solidus_client'
+  s.homepage = 'https://github.com/nebulab/solidus_client'
   s.licenses = ['MIT']
   s.summary = 'Solidus API Ruby client'
 
