@@ -39,6 +39,7 @@ Commands:
 Options:
     -u, --url   Solidus URL
     -k, --key   Solidus API key
+    -t, --token Solidus guest token
 ```
 
 ## Development

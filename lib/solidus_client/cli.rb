@@ -29,6 +29,7 @@ module SolidusClient
         opts_banner(opts)
         opts_url(opts, options)
         opts_key(opts, options)
+        opts_token(opts, options)
       end.parse!
 
       options
@@ -51,6 +52,12 @@ module SolidusClient
     def opts_key(opts, options)
       opts.on('-k', '--key [STRING]', 'Solidus API key') do |value|
         options[:api_key] = value
+      end
+    end
+
+    def opts_token(opts, options)
+      opts.on('-t', '--token [STRING]', 'Solidus guest token') do |value|
+        options[:guest_token] = value
       end
     end
 

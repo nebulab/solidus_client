@@ -10,6 +10,7 @@ RSpec.describe SolidusClient::Client do
   end
 
   it 'handles errors' do
+    ENV.delete('SOLIDUS_GUEST_TOKEN')
     ENV['SOLIDUS_API_KEY'] = 'invalid_key'
     allow(PP).to receive(:pp)
 
